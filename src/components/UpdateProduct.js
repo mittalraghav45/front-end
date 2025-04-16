@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useParams} from 'react-router-dom'
+import {useParams,useNavigate} from 'react-router-dom'
 
 const UpdateProduct = () => {
   const [name, setName] = useState("");
@@ -8,6 +8,7 @@ const UpdateProduct = () => {
   const [company, setCompany] = useState("");
   const [error, setError] = useState(false);
   const params=useParams();
+  const navigate=useNavigate();
 
   useEffect(()=>{
     getProductDetails();
@@ -24,21 +25,18 @@ const UpdateProduct = () => {
 
   }
   const updateProduct = async () => {
-    // if (!name || !price || !category || !company) {
-    //   setError(true);
-    //   return false;
-    // }
-    // const userId = JSON.parse(localStorage.getItem("user")).user._id;
-    // console.log(userId);
-    // let response = await fetch("http://localhost:5000/add-product", {
-    //   method: "post",
-    //   body: JSON.stringify({ name, price, category, company, userId }),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    // response = await response.json();
-    console.log(name,price,category,company);
+      
+    let response = await fetch(`http://localhost:5000/product/${params.id}`, {
+      method: "Put",
+      body: JSON.stringify({ name, price, category, company }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    response = await response.json();
+    // console.log(name,price,category,company);
+    console.log(response);
+    navigate('/');
   };
 
   return (
