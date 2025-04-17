@@ -19,7 +19,8 @@ const Nav=()=>{
                 <li><Link to='/add'> Add Product</Link></li>
                 <li><Link to='/update'> Update Product</Link></li>
                 <li><Link to='/profile'> Profile</Link></li> 
-                <Link onClick={logout} to='/signup'> Logout( {JSON.parse(auth).user.name})</Link>
+                <Link onClick={logout} to='/signup'> Logout</Link>
+                <Link onClick={logout} to='/signup'> Logout( {JSON.parse(result).user.name})</Link>
                
             </ul>:
             <ul className='nav-ul nav-right'>
