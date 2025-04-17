@@ -1,4 +1,3 @@
-// import { raw } from "express";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -23,7 +22,7 @@ const ProductList = () => {
     let result = await fetch(`http://localhost:5000/product/${id}`, {
       method: "Delete",
       headers:{
-        authorization:` bearer ${JSON.parse(localStorage.getItem('token'))}`
+        authorization:`bearer ${JSON.parse(localStorage.getItem('token'))}`
       }
 
     });
@@ -39,11 +38,11 @@ const ProductList = () => {
     if (key) {
       let result = await fetch(`http://localhost:5000/search/${key}`, {
         headers: {
-          authorization: ` bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
         },
       });
       result = await result.json();
-      console.log(result);
+      
       if (result) {
         setProducts(result);
       }
