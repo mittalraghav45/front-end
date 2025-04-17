@@ -6,9 +6,7 @@ const Nav=()=>{
     const auth = localStorage.getItem("user");
     
   const user = auth ? JSON.parse(auth) : null;
-//   console.log('user name: ',user.name)
-  console.log('in nav bar val of user is: ',user)
-    
+  
     const logout=()=>{
         localStorage.clear();
         navigate("/signup");
