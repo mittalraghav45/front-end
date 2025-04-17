@@ -1,3 +1,4 @@
+// import { raw } from "express";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -19,16 +20,35 @@ const ProductList = () => {
       method: "Delete",
     });
     result = await result.json();
-    if(result)
-    {
-        alert('deleted the record');
-        getProducts();
+    if (result) {
+      alert("deleted the record");
+      getProducts();
     }
   };
 
+  const searchHandle = async (event) => {
+    // console.log('in searchHandle ',
+    let key = event.target.value;
+    if (key) {
+      let result = await fetch(`http://localhost:5000/search/${key}`);
+      result = await result.json();
+      console.log(result);
+      if (result) {
+        setProducts(result);
+      }
+    } else {
+      getProducts();
+    }
+  };
   return (
     <div className="product-list">
       <h3>Product List</h3>
+      <input
+        onChange={searchHandle}
+        type="text"
+        placeholder="Search here"
+        className="search-product-box"
+      />
       <ul>
         <li>S.NO</li>
         <li>Name</li>
@@ -37,22 +57,20 @@ const ProductList = () => {
         <li>Operation</li>
       </ul>
 
-      {products.map((item, index) => (
+      { products.length >0 ? products.map((item, index) => (
         <ul key={item._id}>
           <li>{index + 1}</li>
           <li>{item.name}</li>
           <li>$ {item.price}</li>
           <li>{item.category}</li>
           <li>
-            <button onClick={() => deleteProduct(item.user._id)}>Delete</button> 
-            <Link to={"/update/"+item._id}>Update </Link>
+            <button onClick={() => deleteProduct(item.user._id)}>Delete</button>
+            <Link to={"/update/" + item._id}>Update </Link>
           </li>
         </ul>
-      ))}
+      )):<h1>No products found</h1>}
     </div>
   );
 };
-//southampton fc bank acc details
-//icici bank acc details
-//
+
 export default ProductList;
