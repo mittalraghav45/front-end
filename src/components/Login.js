@@ -20,9 +20,12 @@ const Login = () => {
       },
     });
     result = await result.json();
+    console.log(result)
+    console.log(result.auth)
 
     if (result) {
       localStorage.setItem("user", JSON.stringify(result));
+      localStorage.setItem("token", JSON.stringify(result.auth));
       navigate("/");
     } else {
       alert("ehh wrong creds !");
